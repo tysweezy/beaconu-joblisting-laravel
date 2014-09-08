@@ -18,7 +18,6 @@ class AccountController extends BaseController {
 
     if ($validator->fails()) {
       
-      
       return Redirect::route('account-login')
                 ->withErrors($validator)
                 ->withInput();
@@ -93,7 +92,6 @@ class AccountController extends BaseController {
               ->with('global', 'Your password could not be changed');
   }
 
-
   public function getForgotPassword() {
     return View::make('account.forgot');
   }
@@ -152,7 +150,8 @@ class AccountController extends BaseController {
         'first_name'      => 'required',
         'last_name'       => 'required',
         'password'        => 'required|min:6',
-        'password_repeat' => 'required|same:password'
+        'password_repeat' => 'required|same:password',
+        'role'            => 'required'
 	  );
 
       //validate
@@ -161,28 +160,46 @@ class AccountController extends BaseController {
       if ($validate->fails()) {
         return Redirect::route('account-create')->withErrors($validate)->withInput(); 
       } else {
-        $username    = Input::get('username');
+        /*$username    = Input::get('username');
         $email       = Input::get('email');
         $first_name  = Input::get('first_name');
         $last_name   = Input::get('last_name');
         $password    = Input::get('password');
+        $role        = Input::get('role');*/// fuck shit fuck wont work
 
+        $username = Input::get('username');
+        
         //activation code
 
         $code = str_random(60);
 
 
-        $user = User::create(array(
+        /*$user = User::create(array(
           'username'   => $username,
           'email'      => $email,
           'first_name' => $first_name,
           'last_name'  => $last_name,
           'password'   => Hash::make($password),
-          'code'       => $code,
-          'active'     => 0
-        ));
+          'code'       => $code, 
+          'active'     => 0,
+          'role'       => $role // eat a dick
+        ));*/
+
+
+      $user = new User;
+
+      $user->username    = Input::get('username');
+      $user->email       = Input::get('email');
+      $user->first_name  = Input::get('first_name');
+      $user->last_name   = Input::get('last_name');
+      $user->password    = Hash::make(Input::get('password'));
+      $user->code        = $code;
+      $user->active      = 0;
+      $user->role        = Input::get('role'); // $user->save() worked over User::create for select dropdowns for some reason...
+  
+
       
-       if ($user) {
+       if ($user->save()) {
          Mail::send('emails.auth.activate', array('link' => URL::route('account-activate', $code), 'username' => $username), function($message) use ($user) {
            $message->to($user->email, $user->username)->subject('Activate your account');
          });  

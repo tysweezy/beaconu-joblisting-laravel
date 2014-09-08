@@ -19,4 +19,9 @@ class Listings extends Eloquent {
       'company'    => 'required',
       'email'      => 'required|email|unique:listings'
  	);
+    
+  public function order() {
+    return $listings = $this->orderBy('id', 'asc')->get(); 
+  }
+
 }

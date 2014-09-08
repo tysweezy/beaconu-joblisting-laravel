@@ -23,7 +23,7 @@ Route::resource('/admin', 'AdminController');
 
 
 
-Route::get('/student/{username}', array(
+Route::get('/profile/{username}', array(
   'as'    => 'student-profile',
   'uses'  => 'ProfileController@student'
 ));
@@ -59,8 +59,8 @@ Route::group(array('before' => 'auth'), function() {
         'as'   => 'apply-job-post',
         'uses' => 'ListingsController@postApply'
       ));
-
   });
+
    
   /*
     / Change password (GET)
@@ -88,10 +88,14 @@ Route::group(array('before' => 'auth'), function() {
     'as'    => 'account-logout', 
     'uses'  => 'AccountController@getLogout'
   ));
-  
 
 
-});
+  Route::get('/profile/private/{username}', array(
+    'as'    => 'profile-private',
+    'uses'  => 'ProfileController@personal'
+  ));
+
+ });
 
 
 /*
@@ -104,14 +108,15 @@ Route::group(array('before' => 'guest'), function() {
    / CSRF Protection
   */
   Route::group(array('before' => 'csrf'), function() {
-	    Route::post('/account/create', array(
+	    
+      Route::post('/account/create', array(
 	     'as'   => 'account-create-post',
 	     'uses' => 'AccountController@postCreate'
 	   ));
 
 
 
-      /*
+    /*
 
      / Forgot Password (POST)
 
@@ -179,4 +184,4 @@ Route::group(array('before' => 'guest'), function() {
      'as'   => 'account-activate',
      'uses' => 'AccountController@getActivate'
    ));
-});
+  });

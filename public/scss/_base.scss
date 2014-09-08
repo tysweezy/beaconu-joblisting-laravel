@@ -93,12 +93,15 @@ label > span.title {display: block;}
 
 label {color: #666;}
 
+
+
 input[type="text"], input[type="date"], input[type="email"], input[type="password"] {
+
 	background: #f7f7f7;
 	border: 1px solid #ccc;
 	font-size: .9em;
 	@include box-shadow(inset 0, 1px, 1px, rgba(0, 0, 0, 0.4)); 
-	width: 99%;
+	//width: 99%;
 	height: 35px;
 	border: 3px solid #d3d3d3;
 	@include border-radius(3px);
@@ -132,7 +135,6 @@ select {
 	@include box-shadow(inset 0, 1px, 1px, rgba(0, 0, 0, 0.5)); 
 	height: 30px;
 	width: 99%;
-
 }
 
 
@@ -145,7 +147,7 @@ input[type="submit"] {
 	border-bottom: 3px solid #f90;
 	position: absolute;
 	width: 25%;
-	bottom: -16em;
+	/*bottom: -16em;*/
 	left: 0;
 
 	&:hover {
@@ -153,6 +155,10 @@ input[type="submit"] {
 	}
 
 	&:active, &:focus {color: #f7f7f7;}
+}
+
+#postjob {
+	bottom: -16em;
 }
 
 
@@ -204,7 +210,7 @@ span.countdown {
 	display: none;
 }
 
-form {margin-left: 4.5%;}
+//form {margin-left: 4.5%;}
 
 span.error-message {
 	display: block;
@@ -321,4 +327,47 @@ a#postJobBtn {
 
 span.apply-title {
 	color: #999; 
+}
+
+ul.errors {
+	li {
+		list-style: none;
+		margin: 10px 0;
+		padding: 10px;
+	}
+}
+
+input.btn {width: auto;}
+
+.user-info {
+	li {
+		list-style: none;
+	}
+}
+
+
+/** Auth wrapper **/
+.auth {
+  width: 50%;
+  margin: 0 auto;
+  border: 3px solid #ccc;
+  padding: 0px 25px 50px 25px;
+  position: relative;
+  @include border-radius(5px);
+
+  h2 {
+  	color: #666;
+  	background: #ddd;
+  	left: 0;
+  	width: 100%;
+  	margin:0;
+  	position: absolute;
+  	padding: 3px 10px;
+  }
+
+  form {
+  	margin-top: 50px;
+  }
+
+
 }

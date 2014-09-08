@@ -12,11 +12,10 @@ class ListingsController extends \BaseController {
 
 	public function allListings() {
 
-        /*Mail::send('emails.auth.test', array('name' => 'Tyler'), function($message) {
-        	$message->to('tyler@decipherinc.com', 'Tyler Souza')->subject('Test Email');
-        });*/
+        $listings = Listings::orderBy('id', 'DESC')->get();
 
-        $listings = Listings::all();
+         //Listings::orderBy('id', 'DESC')->get();
+
 
         return View::make('listings')->with('listings', $listings);
 	}
@@ -30,19 +29,30 @@ class ListingsController extends \BaseController {
       	$id = $id->first();
 
 	      if (Auth::check()) {
+	        
+           if (Auth::user()->role == "Student") {
 	        return View::make('apply')->with('apply', $id);
-	      } else {
-	      	return Redirect::to('/')
-	      		   ->with('global', 'You have to be logged in to apply.'); 
-	      }
+	       } else {
+	       	return Redirect::to('/')
+	       	        ->with('global', 'You must be a student to apply.');
+	       }
 
+
+	      } else {
+	      	return Redirect::route('account-login')
+	      		   ->with('global', 'You have to be logged in to apply.'); 
+
+
+	      }
+          
      }
 
     }
 
 
-    public function postApply() {
+    public function postApply($id) {
 
+    	$listing = Listings::find($id);
     	
         
         $rules = array(
@@ -71,7 +81,13 @@ class ListingsController extends \BaseController {
      * 
      */ 
     public function job() {
-      return View::make('postjob');
+
+       if(Auth::user()->role == "Employer") {
+        return View::make('postjob');
+       } else {
+         return Redirect::to('/')
+         		  ->with('global', 'You must be an employer to post a job.');
+       }
     }
 
 
@@ -129,10 +145,13 @@ class ListingsController extends \BaseController {
 
   	  $validator = Validator::make(Input::all(), $rules);
 
-  	  if ($validator->passes()) {
-        // mail job application to employer
-  	  } else {
+  	  if ($validator->fails()) {
         // flash errors
+
+  	  } else {
+       
+
+         // mail job application to employer
   	  }
 	}
 

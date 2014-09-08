@@ -9,9 +9,14 @@
 
 <a href="postjob" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Post a job</a>
  <a href="{{ URL::route('account-logout') }}" class="btn btn-warning">Logout</a>
- <a href="{{ URL::route('account-change-password') }}">Change Password</a>
 
- Hello, <a href="student/{{ Auth::user()->username }}">{{ Auth::user()->username }}</a>
+ <div class="pull-right" id="auth-details">
+	 
+
+	 Hello, <a href="profile/private/{{ Auth::user()->username }}">{{ Auth::user()->username }}</a> |
+
+	 <a href="{{ URL::route('account-change-password') }}">Change Password</a>
+</div>
 
 
 @else
@@ -64,7 +69,9 @@
 
 	 	
 
+   
 	  <a href="apply/{{ $row->id }}" class="applyBtn">Apply</a>
+  
 
 	 </div><!-- /list-right -->
 

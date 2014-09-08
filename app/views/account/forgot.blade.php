@@ -1,7 +1,7 @@
 @extends('layouts.default')
-
-
 @section('content')
+
+<div class="auth">
   <h2>Forgot Password</h2>
 
 {{ Form::open() }}
@@ -12,11 +12,15 @@
   @endforeach
 
 
+ <div class="form-group">
    {{ Form::label('email', 'Email') }}
-   {{ Form::email('email') }}
+   {{ Form::email('email', '', array('class' => 'form-control')) }}
+ </div>
 
 
-  {{ Form::submit('Recover') }}
+  {{ Form::submit('Recover', array('class' => 'btn')) }}
     
   {{ Form::close() }}
+
+ </div><!-- /auth -->
 @stop

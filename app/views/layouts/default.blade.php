@@ -25,7 +25,7 @@
 
 
 @if(Session::has('global'))
-  {{ Session::get('global') }}
+  <div style="padding: 10px;" class="bg-info">{{ Session::get('global') }}</div>
 
   <br />
 @endif
