@@ -80,6 +80,8 @@ Route::group(array('before' => 'auth'), function() {
     'uses' => 'ListingsController@apply'
   ));
 
+  //Route::controller('/apply', 'ListingsController');
+
   /*
     / Sign out (GET)
   */
@@ -113,8 +115,6 @@ Route::group(array('before' => 'guest'), function() {
 	     'as'   => 'account-create-post',
 	     'uses' => 'AccountController@postCreate'
 	   ));
-
-
 
     /*
 

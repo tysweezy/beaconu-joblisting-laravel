@@ -52,23 +52,34 @@ class ListingsController extends \BaseController {
 
     public function postApply($id) {
 
-    	$listing = Listings::find($id);
-    	
-        
+       $apply = Listings::find($id);
+
+        	
         $rules = array(
           'name'          => 'required',
           'apply-email'   => 'required|email',
+          'resume'        => 'max:5000',
           'cover-letter'  => 'required'
         );
 
     	$validator = Validator::make(Input::all(), $rules);
 
     	if ($validator->fails()) {
-          return Redirect::route('apply-job')
+          return Redirect::route('apply-job', array($id))
           		 ->withErrors($validator)
           		 ->withInput();
     	} else {
     	  // Send job application via Email
+
+    		//file logic
+
+           //$listings = Listings::find(1);
+
+    		//dd(Input::all());
+
+    		Mail::send('emails.job.apply', array('company' => $apply->company, 'letter' => Input::get('cover-letter'), 'name' => Input::get('name'), 'applyemail' => Input::get('apply-email')), function($message) use ($apply) {
+              $message->to($apply->email, $apply->company)->subject('New Job Application');
+    		});
     	}
     }
 

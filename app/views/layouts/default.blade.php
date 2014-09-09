@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>BeaconU Listings</title>
+	<title>BeaconU Listings </title>
     {{ HTML::style('css/style.css') }}
 	<!-- twitter bootstrap -->
 	{{ HTML::style('bower_components/bootstrap/dist/css/bootstrap.css')  }}

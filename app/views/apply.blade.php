@@ -4,7 +4,7 @@
 <h2>Apply For: <span style="#aaa" class="apply-title">{{ $apply->job_title }} @ {{ $apply->company }}</span></h2>
 
 
-{{ Form::open() }}
+{{ Form::open(['route' => ['apply-job-post', $apply->id], 'files' => 'true']) }}
 
  <ul class="errors">
   @foreach($errors->all() as $error)
@@ -30,8 +30,8 @@
 
 
   <div class="form-group">
-	{{ Form::label('file', 'Upload Resume') }}
-	{{ Form::file('file') }}
+	{{ Form::label('resume', 'Upload Resume') }}
+	{{ Form::file('resume') }}
   </div>
 
 

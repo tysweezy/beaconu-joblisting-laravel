@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'listings',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'ty12rays',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
